@@ -10,7 +10,7 @@
     REPO: shared
     SERVICE: inference-server
     HELM: helm-repo
-    REPO_BRANCH: FuelConsumption
+    REPO_BRANCH: main
     HELM_BRANCH: main
   before_script:
     - "apk --no-cache add jq"
@@ -51,7 +51,7 @@
 update_helm:
   extends: [.dagger]
   tags: [dagger]
-  stage: .post
+  stage: build
   artifacts:
     untracked: true
   script:
@@ -69,7 +69,7 @@ update_helm:
 sync_helm:
   extends: [.dagger]
   tags: [dagger]
-  stage: .post
+  stage: build
   needs: [update_helm]
   dependencies: [update_helm]
   artifacts:
